@@ -49,7 +49,7 @@ specify one or more [Ed25519 public keys][Ed25519] in an integrity attribute:
 The developer can sign `whatever.js` when they deploy it, and teach their servers to transmit a
 signature along with the resource in any number of ways<sup><a name="ref1"></a>[1](#foot1)</sup>.
 For simplicity's sake, let's say that the signature is delivered in a response header which the
-user agent could verify before executing the script. This might look like:
+user agent could verify before executing the script. For developers ease also the fingerprint itself could be send in the header, making it easy to debug issues. This might look like:
 
 ```http
 HTTP/1.1 200 OK
@@ -59,6 +59,7 @@ Content-Type: text/javascript; charset=UTF-8
 Access-Control-Allow-Origin: *
 ...
 Integrity: ed25519-[base64-encoded result of Ed25519(`console.log("Hello, world!");`)]
+Integrity-public-fingerprint: ed25519-[base64-encoded public key]
  
 console.log("Hello, world!");
 ```
